@@ -1,3 +1,5 @@
+import java.sql.Blob;
+
 /*
  * Academic Honesty Certification
  * Written sources used:
@@ -170,8 +172,60 @@ public class RedBlackTree {
  }
 
  }
- public static void delete_fixup(RedBlackTree T, RedBlackNode z){
-
+ public static void delete_fixup(RedBlackTree T, RedBlackNode x){
+	 RedBlackNode w = null;
+	while(x != T.root && x.color == BLACK){
+		if(x == x.parentNode.leftNode){
+			w = x.parentNode.rightNode;
+			if(w.color == RED){
+				w.color = BLACK;
+				x.parentNode.color = RED;
+				leftRotate(T, x.parentNode);
+				w = x.parentNode.rightNode;
+			}
+			if(w.leftNode.color == BLACK && w.rightNode.color == BLACK){
+				w.color = RED;
+				x = x.parentNode;
+			}
+			else if(w.rightNode.color == BLACK){
+				w.leftNode.color = BLACK;
+				w.color = RED;
+				rightRotate(T, w);
+				w = x.parentNode.rightNode;
+			}
+			w.color = x.parentNode.color;
+			x.parentNode.color = BLACK;
+			w.rightNode.color = BLACK;
+			leftRotate(T, x.parentNode);
+			x = T.root;
+			
+		}
+		else{
+			w = x.parentNode.leftNode;
+			if(w.color == RED){
+				w.color = BLACK;
+				x.parentNode.color = RED;
+				rightRotate(T, x.parentNode);
+				w = x.parentNode.rightNode;
+			}
+			if(w.rightNode.color == BLACK && w.leftNode.color == BLACK){
+				w.color = RED;
+				x = x.parentNode;
+			}
+			else if(w.leftNode.color == BLACK){
+				w.rightNode.color = BLACK;
+				w.color = RED;
+				leftRotate(T, w);
+				w = x.parentNode.leftNode;
+			}
+			w.color = x.parentNode.color;
+			x.parentNode.color = BLACK;
+			w.leftNode.color = BLACK;
+			rightRotate(T, x.parentNode);
+			x = T.root;
+		}
+	x.color = BLACK;
+	}
  }
  public static void inOrder(RedBlackNode n) {
   if (n == null)
