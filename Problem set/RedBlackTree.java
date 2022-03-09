@@ -134,7 +134,7 @@ public class RedBlackTree {
   T.root.color = BLACK;
  }
 
- public void transplant(RedBlackNode u, RedBlackNode v, RedBlackTree T) {
+ public static void transplant(RedBlackTree T, RedBlackNode u, RedBlackNode v) {
   if (u.parentNode == null) {
    T.root = v;
   } else if (u == u.parentNode.leftNode) {
@@ -145,20 +145,34 @@ public class RedBlackTree {
   }
  }
 
- // public void delete(RedBlackNode z, RedBlackTree T) {
- // RedBlackTree y = z;
- // integer y_origin_color = y.color;
- // if (z.leftNode == null) {
- // x = z.rightNode;
- // transplant(T, z, z.rightNode);
- // }else if{
+ public static void delete(RedBlackNode z, RedBlackTree T) {
+ RedBlackNode y = z;
+ RedBlackNode x = null;
+ int y_origin_color = y.color;
+ if (z.leftNode == null) {
+	x = z.rightNode;
+	transplant(T, z, z.rightNode);
+ }else if(z.rightNode == null){
+	x = z.leftNode;
+	transplant(T, z, z.leftNode);
+ }
+ else{
+	 transplant(T, y, y.rightNode);
+	 y.rightNode = z.rightNode;
+	 y.rightNode.parentNode = y;
+ }
+ transplant(T, z, y);
+ y.leftNode = z.leftNode;
+ y.leftNode.parentNode = y;
+ y.color = z.color;
+ if(y_origin_color == BLACK){
+	 delete_fixup(T, x);
+ }
 
- // }
+ }
+ public static void delete_fixup(RedBlackTree T, RedBlackNode z){
 
- // }
- // public void delete_fixup(RedBlackNode z, RedBlackTree T){
-
- // }
+ }
  public static void inOrder(RedBlackNode n) {
   if (n == null)
    return;
