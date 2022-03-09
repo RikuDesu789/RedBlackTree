@@ -1,10 +1,16 @@
-public class RedBlackTreeTester {
+class RedBlackTreeTester {
  public static void main(String[] args) {
   RedBlackTree rbt = new RedBlackTree();
   RedBlackNode node1 = new RedBlackNode(14);
-  RedBlackTree.inOrder(rbt.root);
+  RedBlackNode node2 = new RedBlackNode(1);
+  RedBlackNode node3 = new RedBlackNode(23);
+  RedBlackNode node4 = new RedBlackNode(234);
+  RedBlackNode node5 = new RedBlackNode(3);
   RedBlackTree.insert(rbt, node1);
-  // rbt.delete(node2);
-  // rbt.inOrder();
+  RedBlackTree.insert(rbt, node2);
+  RedBlackTree.insert(rbt, node3);
+  RedBlackTree.insert(rbt, node4);
+  RedBlackTree.insert(rbt, node5);
+  RedBlackTree.inOrder(rbt.root);
  }
 }

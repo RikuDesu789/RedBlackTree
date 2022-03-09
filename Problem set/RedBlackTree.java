@@ -14,148 +14,162 @@
  * Signatures:
  */
 public class RedBlackTree {
-   final static int RED = 0;
-   final static int BLACK = 1;
-   public RedBlackNode root;
-   private RedBlackNode nil;
+ final static int RED = 0;
+ final static int BLACK = 1;
+ public RedBlackNode root;
 
-   public RedBlackTree() {
-      this.root = nil;
+ public RedBlackTree() {
+  this.root = null;
+ }
+
+ private static void leftRotate(RedBlackTree T, RedBlackNode x) {
+  RedBlackNode y = x.rightNode;
+  x.rightNode = y.leftNode;
+  y.parentNode = x.parentNode;
+
+  if (y.leftNode != null) {
+   y.leftNode.parentNode = x;
+  }
+
+  if (y.parentNode == null) {
+   T.root = y;
+  } else if (x == x.parentNode.leftNode) {
+   x.parentNode.leftNode = y;
+  } else {
+   x.parentNode.rightNode = y;
+  }
+  y.leftNode = x;
+  x.parentNode = y;
+ }
+
+ private static void rightRotate(RedBlackTree T, RedBlackNode x) {
+  RedBlackNode y = x.leftNode;
+  x.leftNode = y.rightNode;
+  y.rightNode.parentNode = x;
+  y.parentNode = x.parentNode;
+
+  if (x.parentNode == null) {
+   T.root = y;
+  }
+
+  else if (x.parentNode.leftNode == x) {
+   x.parentNode.leftNode = y;
+  } else {
+   x.parentNode.rightNode = y;
+  }
+  y.rightNode = x;
+  x.parentNode = y;
+ }
+
+ public static void insert(RedBlackTree T, RedBlackNode z) {
+  RedBlackNode x = T.root;
+  RedBlackNode y = null;
+  if (T.root != null) {
+   while (x != null) {
+    y = x;
+    if (z.key < x.key) {
+     x = x.leftNode;
+    } else {
+     x = x.rightNode;
+    }
+   }
+   z.parentNode = y;
+
+   if (y == null) {
+    T.root = z;
+   } else if (z.key < y.key) {
+    y.leftNode = z;
+   } else {
+    y.rightNode = z;
    }
 
-   private static void leftRotate(RedBlackTree T, RedBlackNode x) {
-      RedBlackNode y = x.rightNode;
-      x.rightNode = y.leftNode;
-      y.parentNode = x.parentNode;
+   z.leftNode = null;
+   z.rightNode = null;
+   z.color = RED;
+   insertFix(T, z);
+  } else {
+   T.root = z;
+  }
+  // as defined in the RedBlackNode class, 0 is red 1 is black
 
-      if (y.leftNode != T.nil) {
-         y.leftNode.parentNode = x;
-      }
+ }
 
-      if (y.parentNode == T.nil) {
-         T.root = y;
-      } else if (x == x.parentNode.leftNode) {
-         x.parentNode.leftNode = y;
-      } else {
-         x.parentNode.rightNode = y;
-      }
-      y.leftNode = x;
-      x.parentNode = y;
+ private static void insertFix(RedBlackTree T, RedBlackNode z) {
+  while (z.parentNode != null && z.parentNode.parentNode != null && z.parentNode.parentNode.leftNode != null
+    && z.parentNode.color == RED) {
+   if (z.parentNode == z.parentNode.parentNode.leftNode) {
+    RedBlackNode y = z.parentNode.parentNode.rightNode;
+    if (y.color == RED) {
+     z.parentNode.color = BLACK;
+     y.color = BLACK;
+     z.parentNode.parentNode.color = RED;
+     z = z.parentNode.parentNode;
+    } else if (z == z.parentNode.rightNode) {
+     z = z.parentNode;
+     leftRotate(T, z);
+    }
+    z.parentNode.color = BLACK;
+    z.parentNode.parentNode.color = RED;
+    rightRotate(T, z.parentNode.parentNode);
+   } else {
+    RedBlackNode y = z.parentNode.parentNode.leftNode;
+    if (y.color == RED) {
+     z.parentNode.color = BLACK;
+     y.color = BLACK;
+     z.parentNode.parentNode.color = RED;
+     z = z.parentNode.parentNode;
+    } else if (z == z.parentNode.leftNode) {
+     z = z.parentNode;
+     rightRotate(T, z);
+    }
+    if (z.parentNode != null) {
+     z.parentNode.color = BLACK;
+    }
+    if (z.parentNode != null && z.parentNode.parentNode != null) {
+     z.parentNode.parentNode.color = RED;
+     leftRotate(T, z.parentNode.parentNode);
+    }
    }
+  }
+  T.root.color = BLACK;
+ }
 
-   private static void rightRotate(RedBlackTree T, RedBlackNode x) {
-      RedBlackNode y = x.leftNode;
-      x.leftNode = y.rightNode;
-      y.rightNode.parentNode = x;
-      y.parentNode = x.parentNode;
+ public void transplant(RedBlackNode u, RedBlackNode v, RedBlackTree T) {
+  if (u.parentNode == null) {
+   T.root = v;
+  } else if (u == u.parentNode.leftNode) {
+   u.parentNode.leftNode = v;
+  } else {
+   u.parentNode = v;
+   v.parentNode = u.parentNode;
+  }
+ }
 
-      if (x.parentNode == T.nil) {
-         T.root = y;
-      }
+ // public void delete(RedBlackNode z, RedBlackTree T) {
+ // RedBlackTree y = z;
+ // integer y_origin_color = y.color;
+ // if (z.leftNode == null) {
+ // x = z.rightNode;
+ // transplant(T, z, z.rightNode);
+ // }else if{
 
-      else if (x.parentNode.leftNode == x) {
-         x.parentNode.leftNode = y;
-      } else {
-         x.parentNode.rightNode = y;
-      }
-      y.rightNode = x;
-      x.parentNode = y;
-   }
+ // }
 
-   public static void insert(RedBlackTree T, RedBlackNode z) {
-      RedBlackNode x = T.root;
-      RedBlackNode y = T.nil;
+ // }
+ // public void delete_fixup(RedBlackNode z, RedBlackTree T){
 
-      while (x != T.nil) {
-         y = x;
-         if (z.key < x.key) {
-            x = x.leftNode;
-         } else {
-            x = x.rightNode;
-         }
-         z.parentNode = y;
-
-         if (y == T.nil) {
-            T.root = z;
-         } else if (z.key < y.key) {
-            y.leftNode = z;
-         } else {
-            y.rightNode = z;
-         }
-
-         z.leftNode = T.nil;
-         z.right = T.nil;
-         z.color = RED; // do we need this line????
-         insertFix(T, z);
-         // as defined in the RedBlackNode class, 0 is red 1 is black
-      }
-   }
-
-   private static void insertFix(RedBlackTree T, RedBlackNode z) {
-      while (z.parentNode.color == RED) {
-         if (z.parentNode == z.parentNode.parentNode.leftNode) {
-            TreeNode y = z.parentNode.parentNode.rightNode;
-            if (y.color == RED) {
-               z.parentNode.color = BLACK;
-               y.color = BLACK
-               z.parentNode.parentNode.color = RED;
-               z = z.parentNode.parentNode;
-            } else if (z == z.parentNode.rightNode) {
-               z = z.parentNode;
-               leftRotate(T, z);
-            }
-            z.parentNode.color = BLACK;
-            z.parentNode.parentNode.color = RED;
-            rightRotate(T, z.parentNode.parentNode);
-         } else {
-            TreeNode y = z.parentNode.parentNode.leftNode;
-            if (y.color == RED) {
-               z.parentNode.color = BLACK;
-               y.color = BLACK;
-               z.parentNode.parentNode.color = RED;
-               z = z.parentNode.parentNode;
-            } else if (z == z.parentNode.leftNode) {
-               z = z.parentNode;
-               rightRotate(T, z);
-            }
-            z.parentNode.color = BLACK;
-            z.parentNode.parentNode.color = RED;
-            leftRotate(T, z.parentNode.parentNode);
-         }
-      }
-      T.root.color = BLACK;
-   }
-
-   public void transplant(RedBlackNode u, RedBlackNode v, RedBlackTree T) {
-      if (u.parentNode == T.nil) {
-         T.root = v;
-      } else if (u == u.parentNode.leftNode) {
-         u.parentNode.leftNode = v;
-      } else {
-         u.parentNode = v;
-         v.parentNode = u.parentNode;
-      }
-   }
-
-   // public void delete(RedBlackNode z, RedBlackTree T) {
-   // RedBlackTree y = z;
-   // integer y_origin_color = y.color;
-   // if (z.leftNode == T.nil) {
-   // x = z.rightNode;
-   // transplant(T, z, z.rightNode);
-   // }else if{
-
-   // }
-
-   // }
-   // public void delete_fixup(RedBlackNode z, RedBlackTree T){
-
-   // }
-   public static void inOrder(RedBlackNode n) {
-      if (n == null)
-         return;
-      inorder(n.leftNode);
-      System.out.print(n.key);
-      inorder(n.lrightNode);
-   }
+ // }
+ public static void inOrder(RedBlackNode n) {
+  if (n == null)
+   return;
+  inOrder(n.leftNode);
+  String color;
+  if (n.color == RED) {
+   color = "RED";
+  } else {
+   color = "BLACK";
+  }
+  System.out.print(n.key + ":" + color + " ");
+  inOrder(n.rightNode);
+ }
 }
