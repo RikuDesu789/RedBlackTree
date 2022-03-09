@@ -19,10 +19,10 @@ public class RedBlackTree {
 	final static int RED = 0;
 	final static int BLACK = 1;
 	public RedBlackNode root;
-	public RedBlackNode nil;
+	public RedBlackNode nil = new RedBlackNode(); //leaf
 
 	public RedBlackTree() {
-		this.root = null;
+		this.root = nil;
 	}
 
 	private static void leftRotate(RedBlackTree T, RedBlackNode x) {
@@ -64,35 +64,35 @@ public class RedBlackTree {
 		x.parentNode = y;
 	}
 
-	public static void insert(RedBlackTree T, RedBlackNode z) {
-		RedBlackNode x = T.root;
-		RedBlackNode y = null;
-		if (T.root != null) {
-			while (x != null) {
+	public void insert(RedBlackNode z) {
+		System.out.println("hi");
+		RedBlackNode x = this.root;
+		RedBlackNode y = this.nil;
+			while (x != this.nil) {
+				System.out.println("I'm in loop");
 				y = x;
 				if (z.key < x.key) {
 					x = x.leftNode;
 				} else {
 					x = x.rightNode;
 				}
+				System.out.println("x: " + x + "y: " + y);
 			}
 			z.parentNode = y;
 
-			if (y == null) {
-				T.root = z;
+			if (y == this.nil) {
+				this.root = z;
+				System.out.println("root");
 			} else if (z.key < y.key) {
 				y.leftNode = z;
 			} else {
 				y.rightNode = z;
 			}
 
-			z.leftNode = null;
-			z.rightNode = null;
+			z.leftNode = this.nil;
+			z.rightNode = this.nil;
 			z.color = RED;
-			insertFix(T, z);
-		} else {
-			T.root = z;
-		}
+			//insertFix(T, z);
 		// as defined in the RedBlackNode class, 0 is red 1 is black
 
 	}
@@ -227,18 +227,25 @@ public class RedBlackTree {
 			x.color = BLACK;
 		}
 	}
-
-	public static void inOrder(RedBlackNode n) {
-		if (n == null)
-			return;
-		inOrder(n.leftNode);
-		String color;
-		if (n.color == RED) {
-			color = "RED";
-		} else {
-			color = "BLACK";
+	public void inOrder(RedBlackNode x) {
+		if (x != nil){
+			inOrder(x.leftNode);
+			System.out.println(x.key);
+			inOrder(x.rightNode);
 		}
-		System.out.print(n.key + ":" + color + " ");
-		inOrder(n.rightNode);
+			
 	}
+	// public void inOrder(RedBlackNode n) {
+	// 	if (n == nil)
+	// 		return;
+	// 	inOrder(n.leftNode);
+	// 	String color;
+	// 	if (n.color == RED) {
+	// 		color = "RED";
+	// 	} else {
+	// 		color = "BLACK";
+	// 	}
+	// 	System.out.print(n.key + ":" + color + " ");
+	// 	inOrder(n.rightNode);
+	// }
 }
