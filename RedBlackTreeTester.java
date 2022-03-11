@@ -7,7 +7,6 @@ class RedBlackTreeTester {
     RedBlackNode node4 = new RedBlackNode(17);
     RedBlackNode node5 = new RedBlackNode(25);
     RedBlackNode node6 = new RedBlackNode(40);
-    RedBlackNode node7 = new RedBlackNode(80);
 
     // This inputs covers all the cases for insertion
     System.out.println();
