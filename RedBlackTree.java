@@ -16,6 +16,7 @@
 
 /**
  * a class that represent a Red Black Tree
+ * 
  * @author rikusmriga
  *
  */
@@ -23,33 +24,34 @@ public class RedBlackTree {
 	final static int RED = 0;
 	final static int BLACK = 1;
 	public RedBlackNode root;
-//	private static RedBlackNode Tnil = new RedBlackNode(0);
-	
-/**
- * a constructor for the class that takes the key of the root node as input
- * @param key
- */
-	public RedBlackTree(int key){
+	// private static RedBlackNode Tnil = new RedBlackNode(0);
+
+	/**
+	 * a constructor for the class that takes the key of the root node as input
+	 * 
+	 * @param key
+	 */
+	public RedBlackTree(int key) {
 		RedBlackNode node = new RedBlackNode(key);
 		this.root = node;
 		root.color = BLACK;
 	}
 
 	/**
-	 * a method that performs the left rotation 
-	 * @param T the RedBlack Tree which the rotation needs to be performed 
+	 * a method that performs the left rotation
+	 * 
+	 * @param T the RedBlack Tree which the rotation needs to be performed
 	 * @param x the base node in which the rotation will be performed
 	 */
 	private static void leftRotate(RedBlackTree T, RedBlackNode x) {
-//		System.out.println("left Rotate");
+		// System.out.println("left Rotate");
 		RedBlackNode y = x.rightNode;
 		x.rightNode = y.leftNode;
-
 
 		if (y.leftNode != null) {
 			y.leftNode.parentNode = x;
 		}
-		
+
 		y.parentNode = x.parentNode;
 
 		if (y.parentNode == null) {
@@ -64,12 +66,13 @@ public class RedBlackTree {
 	}
 
 	/**
-	 * a method that performs the right rotation 
-	 * @param T the RedBlack Tree which the rotation needs to be performed 
+	 * a method that performs the right rotation
+	 * 
+	 * @param T the RedBlack Tree which the rotation needs to be performed
 	 * @param x the base node in which the rotation will be performed
 	 */
 	private static void rightRotate(RedBlackTree T, RedBlackNode x) {
-//		System.out.println("right Rotate");
+		// System.out.println("right Rotate");
 		RedBlackNode y = x.leftNode;
 		x.leftNode = y.rightNode;
 
@@ -88,16 +91,16 @@ public class RedBlackTree {
 
 	/**
 	 * a method that inserts the node z into the the tree T
+	 * 
 	 * @param T the Tree that the node z will be inserted
-	 * @param z the node which will be inserted in the Tree 
+	 * @param z the node which will be inserted in the Tree
 	 */
 	public static void insert(RedBlackTree T, RedBlackNode z) {
-		
-		
+
 		RedBlackNode y = null;
 		RedBlackNode x = T.root;
-		
-		while (x != null){
+
+		while (x != null) {
 			y = x;
 			if (z.key < x.key) {
 				x = x.leftNode;
@@ -114,59 +117,56 @@ public class RedBlackTree {
 		} else {
 			y.rightNode = z;
 		}
- 
-		insertFix(T,z);	
+
+		insertFix(T, z);
 	}
 
 	private static void insertFix(RedBlackTree T, RedBlackNode z) {
-		
-		while (T.root != z && z.parentNode.color == RED){
+
+		while (T.root != z && z.parentNode.color == RED) {
 			if (z.parentNode == z.parentNode.parentNode.leftNode) {
 				RedBlackNode y = z.parentNode.parentNode.rightNode;
-				//check for case 1
-				if (y != null && y.color == RED){
-					System.out.println("case11");
-					z.parentNode.color = BLACK;
-					y.color = BLACK;
-					z.parentNode.parentNode.color = RED;
-					z = z.parentNode.parentNode;
-				}
-				else {
-					//check for case 2
-					System.out.println("case21");
-					if (z == z.parentNode.rightNode) {
-						z = z.parentNode;
-						leftRotate(T, z);
-					}
-					//check for case 3
-					System.out.println("case31");
-					z.parentNode.color = BLACK;
-					z.parentNode.parentNode.color = RED;
-					
-					rightRotate(T, z.parentNode.parentNode);
-				}
-			}
-			else {
-				RedBlackNode y = z.parentNode.parentNode.leftNode;
-				if (y!= null && y.color == RED) {
-					//check for case 1
-					System.out.println("case12");
+				// check for case 1
+				if (y != null && y.color == RED) {
+					// System.out.println("case11");
 					z.parentNode.color = BLACK;
 					y.color = BLACK;
 					z.parentNode.parentNode.color = RED;
 					z = z.parentNode.parentNode;
 				} else {
-					//check for case 2
+					// check for case 2
+					// System.out.println("case21");
+					if (z == z.parentNode.rightNode) {
+						z = z.parentNode;
+						leftRotate(T, z);
+					}
+					// check for case 3
+					// System.out.println("case31");
+					z.parentNode.color = BLACK;
+					z.parentNode.parentNode.color = RED;
+
+					rightRotate(T, z.parentNode.parentNode);
+				}
+			} else {
+				RedBlackNode y = z.parentNode.parentNode.leftNode;
+				if (y != null && y.color == RED) {
+					// check for case 1
+					// System.out.println("case12");
+					z.parentNode.color = BLACK;
+					y.color = BLACK;
+					z.parentNode.parentNode.color = RED;
+					z = z.parentNode.parentNode;
+				} else {
+					// check for case 2
 					if (z == z.parentNode.leftNode) {
-						System.out.println("case22");
+						// System.out.println("case22");
 						z = z.parentNode;
 						rightRotate(T, z);
 					}
-					//check for case 3
-					System.out.println("case32");
+					// check for case 3
+					// System.out.println("case32");
 					z.parentNode.color = BLACK;
 					z.parentNode.parentNode.color = RED;
-					System.out.println(z.parentNode.parentNode.key);
 					leftRotate(T, z.parentNode.parentNode);
 				}
 			}
@@ -197,5 +197,5 @@ public class RedBlackTree {
 		}
 		System.out.print(n.key + ":" + color + " ");
 		inOrder(n.rightNode);
-	}	
+	}
 }
