@@ -17,7 +17,6 @@ class RedBlackTreeTester {
     RedBlackTree.insert(rbt, node4);
     RedBlackTree.insert(rbt, node5);
     RedBlackTree.insert(rbt, node6);
-    RedBlackTree.insert(rbt, node7);
     RedBlackTree.inOrder(rbt.root);
     System.out.println();
     System.out.println();
