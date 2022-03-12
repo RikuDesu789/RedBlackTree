@@ -11,9 +11,9 @@ class RedBlackTreeTester {
     // This inputs covers all the cases for insertion
     System.out.println();
     RedBlackTree.insert(rbt, node1);
-    RedBlackTree.insert(rbt, node2);
+    // RedBlackTree.insert(rbt, node2);
     RedBlackTree.insert(rbt, node3);
-    RedBlackTree.insert(rbt, node4);
+    // RedBlackTree.insert(rbt, node4);
     RedBlackTree.insert(rbt, node5);
     RedBlackTree.insert(rbt, node6);
 
