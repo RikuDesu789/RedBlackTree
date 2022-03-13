@@ -8,7 +8,7 @@ public class RedBlackNode {
  public RedBlackNode rightNode;
 
  public RedBlackNode(int key) {
-  this(key, 0, null, null, null);
+  this(key, 1, null, null, null);
  }
 
 // public RedBlackNode(RedBlackNode p) {
