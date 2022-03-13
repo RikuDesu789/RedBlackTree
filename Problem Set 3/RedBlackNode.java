@@ -8,20 +8,12 @@ public class RedBlackNode {
     public RedBlackNode rightNode;
 
     public RedBlackNode() {
-        this(1);
+        this(0);
     }
     public RedBlackNode(int key) {
         this(key, 1, null, null, null);
     }
 
-    /*
-     * public RedBlackNode(RedBlackNode p) {
-     * this.parentNode = p;
-     * this.color = 1;
-     * this.leftNode = null;
-     * this.rightNode = null;
-     * }
-     */
 
     public RedBlackNode(int key, int color, RedBlackNode parentNode, RedBlackNode leftNode, RedBlackNode rightNode) {
         this.key = key;

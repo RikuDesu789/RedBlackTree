@@ -1,18 +1,18 @@
 /*
  * Academic Honesty Certification
  * Written sources used:
- * https://www.w3schools.com/java/java_operators.asp
+ * https://www.w3schools.com/java/java_operators.asp for syntax.
  * (Include textbook(s), complete citations for web or other written sources.
  * Note that you are only allowed to use the web for syntax.
  * Write "none" if no sources used.)
  *
  *
- * Help obtained: (Include names of anyone other than the instructor.)
+ * Help obtained: Haruko Okada, Sergio Martelo
  *
  *
  * My written or typed signature below confirms that the above list
  * of sources is complete.
- * Signatures:
+ * Signatures: Muqi Guo, Riku Smriga
  */
 public class RedBlackTree {
 	final static int RED = 0;
@@ -258,17 +258,5 @@ public class RedBlackTree {
 
 			
 	}
-	// public void inOrder(RedBlackNode n) {
-	// 	if (n == nil)
-	// 		return;
-	// 	inOrder(n.leftNode);
-	// 	String color;
-	// 	if (n.color == RED) {
-	// 		color = "RED";
-	// 	} else {
-	// 		color = "BLACK";
-	// 	}
-	// 	System.out.print(n.key + ":" + color + " ");
-	// 	inOrder(n.rightNode);
-	// }
+	
 }

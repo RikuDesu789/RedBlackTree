@@ -14,12 +14,13 @@ class RedBlackTreeTester {
         rbt.insert(node4);
         rbt.delete(node3);
         rbt.insert(node5);
-        //rbt.insert(node6);
-        //rbt.insert(node7);
-        //rbt.delete(node1);
+        rbt.insert(node6);
+        rbt.insert(node7);
+        rbt.delete(node1);
         
         //System.out.println(rbt.root.leftNode);
-        System.out.println("root is " + rbt.root.key + " color: " + rbt.root.color);
+        System.out.println("root is " + rbt.root.key);
+        System.out.println("===================" );
         rbt.inOrder(rbt.root);
         
         
