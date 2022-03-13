@@ -14,31 +14,20 @@
  * of sources is complete.
  * Signatures: Muqi Guo, Riku Smriga
  */
-
-
-/**
- * RedBlackTree implements leftRotate, rightRotate, insert and delete methods
- * 
- */
-
 public class RedBlackTree {
 	final static int RED = 0;
 	final static int BLACK = 1;
 	public RedBlackNode root = new RedBlackNode();
 	public RedBlackNode nil = new RedBlackNode(); //leaf
 
-	/**
-	 * The RedBlackTree() construct a root that points to nil
-	 */
 	public RedBlackTree() {
 		this.root = nil;
 	}
 
 	
 	/** 
-	 * @param T a RedBlackTree object
-	 * @param x a node
-	 * @return there is no return but it left rotates around node x
+	 * @param T
+	 * @param x
 	 */
 	private static void leftRotate(RedBlackTree T, RedBlackNode x) {
 		RedBlackNode y = x.rightNode;
@@ -62,9 +51,8 @@ public class RedBlackTree {
 
 	
 	/** 
-	 * @param T a RedBlackTree object
-	 * @param x a node
-	 * @return there is no return but it right rotates around node x
+	 * @param T
+	 * @param x
 	 */
 	private static void rightRotate(RedBlackTree T, RedBlackNode x) {
 		RedBlackNode y = x.leftNode;
@@ -87,7 +75,6 @@ public class RedBlackTree {
 
 	
 	/** 
-	 * insert(z) inserts node z onto the rbt object that's invoking it
 	 * @param z
 	 */
 	public void insert(RedBlackNode z) {
@@ -125,9 +112,8 @@ public class RedBlackTree {
 	}
 	
 	/** 
-	 * insertFix recolors the node and re-orders the internal nodes to maintain rbt property.
-	 * @param T rbt object
-	 * @param z node
+	 * @param T
+	 * @param z
 	 */
 	private static void insertFix(RedBlackTree T, RedBlackNode z) {
 		while (z.parentNode.color == RED) {
@@ -170,9 +156,7 @@ public class RedBlackTree {
 		T.root.color = BLACK;
 	}
 	/**
-	 * tree_minimum returns the node with the smallest value
-	 * @param T rbt object
-	 * @param x node
+	 * 
 	 */
 	public static RedBlackNode tree_minimum(RedBlackTree T, RedBlackNode x){
 		while(x.leftNode != T.nil){
@@ -182,10 +166,9 @@ public class RedBlackTree {
 	}
 	
 	/** 
-	 * transplant moves the subtrees around rbt to maintain the right structure
-	 * @param T rbt object
-	 * @param u node
-	 * @param v node
+	 * @param T
+	 * @param u
+	 * @param v
 	 */
 	public static void transplant(RedBlackTree T, RedBlackNode u, RedBlackNode v) {
 		if (u.parentNode == T.nil) {
@@ -200,8 +183,7 @@ public class RedBlackTree {
 
 	
 	/** 
-	 * delete removes a node from the rbt
-	 * @param z node that needs to be removed
+	 * @param z
 	 */
 	public void delete(RedBlackNode z) {
 		RedBlackNode y = z;
@@ -242,9 +224,8 @@ public class RedBlackTree {
 
 	
 	/** 
-	 * delete_fixup recolors the tree and re-order the nodes
-	 * @param T rbt object
-	 * @param x node
+	 * @param T
+	 * @param x
 	 */
 	public static void delete_fixup(RedBlackTree T, RedBlackNode x) {
 		RedBlackNode w = null;
@@ -301,8 +282,7 @@ public class RedBlackTree {
 	}
 	
 	/** 
-	 * inorder performs an inorder walk which prints out the nodes with their color
-	 * @param x starting node
+	 * @param x
 	 */
 	public void inOrder(RedBlackNode x) {
 		if (x != nil){
